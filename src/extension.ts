@@ -10,9 +10,9 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
       TodoWebviewProvider.viewType,
-      new TodoWebviewProvider(context.extensionUri)
-    )
-);
+      new TodoWebviewProvider(context.extensionUri),
+    ),
+  );
 
   context.subscriptions.push(disposable);
 }
