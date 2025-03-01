@@ -11,3 +11,9 @@ export interface Todo {
   created: string;
   priority: "low" | "medium" | "high";
 }
+
+export interface VSCodeAPI {
+  postMessage<T = any>(message: T): void;
+  getState<T = any>(): T | undefined;
+  setState<T = any>(newState: T): void;
+}
