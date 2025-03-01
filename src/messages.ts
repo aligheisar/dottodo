@@ -1,3 +1,3 @@
-export const NoFolderOpen = "No workspace folder open.";
+export const ERRORS = { NoFolderOpen: "No workspace folder open." };
 
-export const SuccessInit = "ToDo files initialized in .todo folder!";
+export const SUCCESS = { init: "ToDo files initialized in .todo folder!" };
