@@ -1,3 +1,5 @@
+import { POST_COMMANDS } from "./constants/commands";
+
 export interface Settings {
   defaultPriority: "low" | "medium" | "high";
   showCompleted: boolean;
@@ -16,6 +18,13 @@ export interface VSCodeAPI {
   postMessage<T = any>(message: T): void;
   getState<T = any>(): T | undefined;
   setState<T = any>(newState: T): void;
+}
+
+export type PostCommand = (typeof POST_COMMANDS)[keyof typeof POST_COMMANDS];
+
+export interface Message<T = undefined> {
+  command: PostCommand;
+  data?: T extends undefined ? never : T;
 }
 
 // packagejson

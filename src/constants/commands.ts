@@ -8,4 +8,6 @@ export const COMMANDS = {
 export const POST_COMMANDS = {
   INIT: "init",
   LOADED: "loaded",
+  UPDATE_TODO: "update-todo",
+  UPDATE_SETTINGS: "update-settings",
 };

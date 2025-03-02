@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { TodoManager } from "./todoManager";
 import { TODO_PANEL_ID } from "./constants/general";
 import { COMMANDS, POST_COMMANDS } from "./constants/commands";
+import { Message } from "./types";
 
 export class TodoWebviewProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = TODO_PANEL_ID;
@@ -23,12 +24,13 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
 
-    webviewView.webview.onDidReceiveMessage((message) => {
-      if (message.command === POST_COMMANDS.LOADED) {
+    webviewView.webview.onDidReceiveMessage((message: Message) => {
+      if (message.command === POST_COMMANDS.INIT) {
+        vscode.commands.executeCommand(COMMANDS.INIT);
+      } else if (message.command === POST_COMMANDS.LOADED) {
         const todos = TodoManager.getTodos();
         webviewView.webview.postMessage({ todos });
-      } else if (message.command === POST_COMMANDS.INIT) {
-        vscode.commands.executeCommand(COMMANDS.INIT);
+      } else if (message.command) {
       }
     });
   }
