@@ -1,15 +1,21 @@
+import { packageJson } from "../types";
 import { COMMANDS } from "./commands";
 import { EXTENSION_NAME, TODO_PANEL_ID, TODO_VIEW_ID } from "./general";
 
 const COMMANDS_CATEGORY = "DotTODO";
 
-export const PACKAGE_JSON = {
+export const PACKAGE_JSON: packageJson = {
   name: EXTENSION_NAME,
   contributes: {
     commands: [
       {
         command: COMMANDS.INIT,
         title: "Initialize DotTODO",
+        category: COMMANDS_CATEGORY,
+      },
+      {
+        command: COMMANDS.ADD_TODO,
+        title: "Add a new TODO",
         category: COMMANDS_CATEGORY,
       },
     ],
