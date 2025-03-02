@@ -5,7 +5,7 @@ import {
   useState,
   useEffect,
 } from "react";
-import { Todo } from "../../types";
+import { Message, Todo } from "../../types";
 import { getVSCodeApi } from "../VsCodeApi";
 import { POST_COMMANDS } from "../../constants/commands";
 
@@ -18,16 +18,19 @@ const TodosContext = createContext<ContextValues>({ todos: null });
 export const GetTodos = () => useContext(TodosContext);
 
 const TodosProvider = ({ children }: { children: ReactNode }) => {
-  const [todos, setTodos] = useState(null);
+  const [todos, setTodos] = useState<Todo[] | null>(null);
 
   const vscode = getVSCodeApi();
 
   useEffect(() => {
-    console.log("use Effect is running");
-
-    window.addEventListener("message", (e) => {
-      setTodos(e.data.todos);
-    });
+    window.addEventListener(
+      "message",
+      (event: MessageEvent<Message<Todo[]>>) => {
+        if (event.data.command === POST_COMMANDS.UPDATE_TODO) {
+          setTodos(event.data?.data ?? []);
+        }
+      }
+    );
 
     vscode.postMessage({
       command: POST_COMMANDS.LOADED,
