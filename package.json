@@ -17,6 +17,11 @@
         "command": "dottodo.init",
         "title": "Initialize DotTODO",
         "category": "DotTODO"
+      },
+      {
+        "command": "dottodo.add-todo",
+        "title": "Add a new TODO",
+        "category": "DotTODO"
       }
     ],
     "viewsContainers": {
