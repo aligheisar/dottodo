@@ -15,7 +15,7 @@ export interface Todo {
 }
 
 export interface VSCodeAPI {
-  postMessage<T = any>(message: T): void;
+  postMessage<T = Message>(message: T): void;
   getState<T = any>(): T | undefined;
   setState<T = any>(newState: T): void;
 }
