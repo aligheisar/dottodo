@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { TodoManager } from "./todoManager";
 import { TODO_PANEL_ID } from "./constants/general";
 import { COMMANDS, POST_COMMANDS } from "./constants/commands";
-import { Message } from "./types";
+import { Message, Todo } from "./types";
 
 export class TodoWebviewProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = TODO_PANEL_ID;
@@ -29,7 +29,10 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
         vscode.commands.executeCommand(COMMANDS.INIT);
       } else if (message.command === POST_COMMANDS.LOADED) {
         const todos = TodoManager.getTodos();
-        webviewView.webview.postMessage({ todos });
+        webviewView.webview.postMessage<Message<Todo[] | null>>({
+          command: POST_COMMANDS.UPDATE_TODO,
+          data: todos,
+        });
       } else if (message.command) {
       }
     });
