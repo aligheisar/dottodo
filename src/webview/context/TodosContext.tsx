@@ -5,9 +5,10 @@ import {
   useState,
   useEffect,
 } from "react";
-import { Message, Todo } from "../../types";
+import { Todo } from "../../types";
 import { getVSCodeApi } from "../VsCodeApi";
 import { POST_COMMANDS } from "../../constants/commands";
+import { useMessage } from "../hooks/use-message";
 
 export type ContextValues = {
   todos: Todo[] | null;
@@ -22,16 +23,13 @@ const TodosProvider = ({ children }: { children: ReactNode }) => {
 
   const vscode = getVSCodeApi();
 
-  useEffect(() => {
-    window.addEventListener(
-      "message",
-      (event: MessageEvent<Message<Todo[]>>) => {
-        if (event.data.command === POST_COMMANDS.UPDATE_TODO) {
-          setTodos(event.data?.data ?? []);
-        }
-      }
-    );
+  useMessage({
+    [POST_COMMANDS.UPDATE_TODO](data) {
+      setTodos(data);
+    },
+  });
 
+  useEffect(() => {
     vscode.postMessage({
       command: POST_COMMANDS.LOADED,
     });
