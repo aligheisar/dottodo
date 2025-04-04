@@ -42,6 +42,7 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, "dist", "webview.js")
     );
+
     return `
       <!DOCTYPE html>
       <html lang="en">
