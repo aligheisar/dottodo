@@ -3,6 +3,7 @@ import { POST_COMMANDS } from "./constants/commands";
 export interface Settings {
   defaultPriority: "low" | "medium" | "high";
   showCompleted: boolean;
+  moveCompletedToBottom: boolean;
   sortBy: "created" | "priority" | "task";
 }
 
