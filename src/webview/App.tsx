@@ -1,12 +1,16 @@
+import AddTodo from "./components/AddTodo";
 import { GetTodos } from "./context/TodosContext";
 import { initMessage } from "./utils/messages";
 
 const App = () => {
-  const { todos } = GetTodos();
+  const { loading, todos } = GetTodos();
 
-  return (
-    <ul>
-      {todos ? (
+  if (loading) return <p>loading</p>;
+
+  return todos ? (
+    <>
+      <AddTodo />
+      <ul>
         <>
           <h1>todos</h1>
           {todos.length > 0 ? (
@@ -19,10 +23,10 @@ const App = () => {
             <p>no item to show</p>
           )}
         </>
-      ) : (
-        <button onClick={initMessage}>Init dotTODO</button>
-      )}
-    </ul>
+      </ul>
+    </>
+  ) : (
+    <button onClick={initMessage}>Init dotTODO</button>
   );
 };
 
