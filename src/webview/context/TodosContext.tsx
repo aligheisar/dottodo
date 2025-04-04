@@ -12,13 +12,18 @@ import { useMessage } from "../hooks/use-message";
 
 export type ContextValues = {
   todos: Todo[] | null;
+  loading: boolean;
 };
 
-const TodosContext = createContext<ContextValues>({ todos: null });
+const TodosContext = createContext<ContextValues>({
+  todos: null,
+  loading: true,
+});
 
 export const GetTodos = () => useContext(TodosContext);
 
 const TodosProvider = ({ children }: { children: ReactNode }) => {
+  const [loading, setLoading] = useState(true);
   const [todos, setTodos] = useState<Todo[] | null>(null);
 
   const vscode = getVSCodeApi();
@@ -26,6 +31,7 @@ const TodosProvider = ({ children }: { children: ReactNode }) => {
   useMessage({
     [POST_COMMANDS.UPDATE_TODO](data) {
       setTodos(data);
+      setLoading(false);
     },
   });
 
@@ -35,7 +41,7 @@ const TodosProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
-  const contextValues: ContextValues = { todos: todos };
+  const contextValues: ContextValues = { todos: todos, loading };
   return (
     <TodosContext.Provider value={contextValues}>
       {children}
