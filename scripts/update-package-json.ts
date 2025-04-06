@@ -12,7 +12,7 @@ const updatedPackageJson = {
 
 fs.writeFileSync(
   packageJsonPath,
-  JSON.stringify(updatedPackageJson, null, 2) + "\n"
+  JSON.stringify(updatedPackageJson, null, 2) + "\n",
 );
 
 console.log("✅ package.json has been successfully updated with constants!");
