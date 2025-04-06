@@ -30,7 +30,7 @@ export interface Message<T = undefined> {
   data?: T extends undefined ? never : T;
 }
 
-// packagejson
+// packageJson
 type activityBarItem = {
   icon?: string;
   id: string;
