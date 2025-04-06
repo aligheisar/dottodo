@@ -5,7 +5,10 @@ import { POST_COMMANDS } from "../../constants/commands";
 interface MessagePayloadMap {
   [POST_COMMANDS.INIT]: any;
   [POST_COMMANDS.LOADED]: any;
-  [POST_COMMANDS.UPDATE_TODO]: Todo[];
+  [POST_COMMANDS.ADD_TODO]: Todo;
+  [POST_COMMANDS.REMOVE_TODO]: { id: string };
+  [POST_COMMANDS.UPDATE_TODO]: Todo;
+  [POST_COMMANDS.UPDATE_TODO_LIST]: Todo[] | null;
   [POST_COMMANDS.UPDATE_SETTINGS]: Settings;
 }
 
@@ -20,7 +23,7 @@ type ValidMessage = {
 export const useMessage = <T extends MessageHandlerMap>(handlers: T) => {
   useEffect(() => {
     const messageListener = (
-      event: MessageEvent<Message<ValidMessage>>
+      event: MessageEvent<Message<ValidMessage>>,
     ): void => {
       const { command, data } = event.data;
 
