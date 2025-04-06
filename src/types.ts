@@ -1,18 +1,20 @@
 import { POST_COMMANDS } from "./constants/commands";
 
 export interface Settings {
-  defaultPriority: "low" | "medium" | "high";
+  defaultPriority: Priority;
   showCompleted: boolean;
   moveCompletedToBottom: boolean;
   sortBy: "created" | "priority" | "task";
 }
+
+export type Priority = "low" | "medium" | "high";
 
 export interface Todo {
   id: string;
   task: string;
   done: boolean;
   created: string;
-  priority: "low" | "medium" | "high";
+  priority: Priority;
 }
 
 export interface VSCodeAPI {
