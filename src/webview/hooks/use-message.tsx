@@ -23,7 +23,7 @@ type ValidMessage = {
 export const useMessage = <T extends MessageHandlerMap>(handlers: T) => {
   useEffect(() => {
     const messageListener = (
-      event: MessageEvent<Message<ValidMessage>>,
+      event: MessageEvent<Message<ValidMessage>>
     ): void => {
       const { command, data } = event.data;
 
