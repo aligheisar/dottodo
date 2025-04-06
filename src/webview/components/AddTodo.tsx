@@ -1,19 +1,24 @@
-import { useRef } from "react";
+import { FormEvent, useRef } from "react";
 
 const AddTodo = () => {
-  const input = useRef<HTMLInputElement>(null);
+  const input = useRef<HTMLInputElement | null>(null);
 
-  const AddTodo = () => {
-    console.log(input.current?.value);
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!input.current) return;
+
+    input.current.value = "";
+    input.current.focus();
   };
 
   return (
-    <section>
-      <input ref={input} type="text" placeholder="Enter Todo" />
-      <button onClick={AddTodo}>
+    <form onSubmit={handleFormSubmit}>
+      <input autoFocus ref={input} type="text" placeholder="Enter Todo" />
+      <button type="submit">
         Add <span className="codicon codicon-add"></span>
       </button>
-    </section>
+    </form>
   );
 };
 
