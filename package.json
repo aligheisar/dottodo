@@ -2,6 +2,7 @@
   "name": "dottodo",
   "displayName": "DotTODO",
   "description": "make todo based on your folder and check them",
+  "publisher": "ali gheisar",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.97.0"
@@ -21,6 +22,16 @@
       {
         "command": "dottodo.add-todo",
         "title": "Add a new TODO",
+        "category": "DotTODO"
+      },
+      {
+        "command": "dottodo.remove-todo",
+        "title": "Remove a TODO",
+        "category": "DotTODO"
+      },
+      {
+        "command": "dottodo.update-todo",
+        "title": "Update a TODO",
         "category": "DotTODO"
       }
     ],
@@ -77,6 +88,7 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
+    "nanoid": "^5.1.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }
