@@ -8,7 +8,7 @@ export interface Settings {
 }
 
 export interface Todo {
-  id: number;
+  id: string;
   task: string;
   done: boolean;
   created: string;
