@@ -1,32 +1,20 @@
-import AddTodo from "./components/AddTodo";
 import { GetTodos } from "./context/TodosContext";
-import { initMessage } from "./utils/messages";
+import AddTodo from "./components/AddTodo";
+import TodoContainer from "./components/TodoContainer";
+import NotInit from "./components/NotInit";
 
 const App = () => {
   const { loading, todos } = GetTodos();
 
-  if (loading) return <p>loading</p>;
+  if (loading && !todos) return <p>loading...</p>;
 
   return todos ? (
     <>
       <AddTodo />
-      <ul>
-        <>
-          <h1>todos</h1>
-          {todos.length > 0 ? (
-            todos.map((i) => (
-              <p style={i.done ? { color: "red" } : {}} key={i.id}>
-                {i.task}
-              </p>
-            ))
-          ) : (
-            <p>no item to show</p>
-          )}
-        </>
-      </ul>
+      <TodoContainer loading={loading} todos={todos} />
     </>
   ) : (
-    <button onClick={initMessage}>Init dotTODO</button>
+    <NotInit />
   );
 };
 
