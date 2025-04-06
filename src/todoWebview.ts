@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import { TODO_PANEL_ID } from "./constants/general";
 import { COMMANDS, POST_COMMANDS } from "./constants/commands";
-import { Message, Todo } from "./types";
-import { addTodo, updateTodos } from "./utils/postMessageFunctions";
+import { Message, Priority } from "./types";
+import { addTodo, updateTodoList } from "./utils/postMessageFunctions";
 
 export class TodoWebviewProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = TODO_PANEL_ID;
@@ -13,7 +13,7 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
   public resolveWebviewView(
     webviewView: vscode.WebviewView,
     context: vscode.WebviewViewResolveContext,
-    _token: vscode.CancellationToken,
+    _token: vscode.CancellationToken
   ) {
     this._view = webviewView;
 
@@ -24,14 +24,14 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
 
-    webviewView.webview.onDidReceiveMessage((message: Message) => {
+    webviewView.webview.onDidReceiveMessage((message: Message<any>) => {
       switch (message.command) {
         case POST_COMMANDS.INIT:
           vscode.commands.executeCommand(COMMANDS.INIT);
           break;
 
         case POST_COMMANDS.LOADED:
-          updateTodos(webviewView);
+          updateTodoList(webviewView);
           break;
 
         case POST_COMMANDS.UPDATE_TODO_LIST:
@@ -40,7 +40,7 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
 
         case POST_COMMANDS.ADD_TODO:
           if (!message.data) return;
-          addTodo(webviewView, message.data);
+          addTodo(webviewView, message.data.task, message.data.priority);
           break;
 
         default:
@@ -49,21 +49,21 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
     });
   }
 
-  public updateTodos() {
+  public updateTodoList() {
     if (this._view) {
-      updateTodos(this._view);
+      updateTodoList(this._view);
     }
   }
 
-  public addTodo(todo: Todo) {
+  public addTodo(task: string, priority: Priority) {
     if (this._view) {
-      addTodo(this._view, todo);
+      addTodo(this._view, task, priority);
     }
   }
 
   private _getHtmlForWebview(webview: vscode.Webview): string {
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "dist", "webview.js"),
+      vscode.Uri.joinPath(this._extensionUri, "dist", "webview.js")
     );
 
     return `
