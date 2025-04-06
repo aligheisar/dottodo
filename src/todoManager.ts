@@ -18,7 +18,7 @@ export class TodoManager {
     return path.join(
       workspaceRoot,
       EXTENSION_FOLDER_NAME,
-      EXTENSION_FILE_NAMES.settings
+      EXTENSION_FILE_NAMES.settings,
     );
   }
 
@@ -26,7 +26,7 @@ export class TodoManager {
     return path.join(
       workspaceRoot,
       EXTENSION_FOLDER_NAME,
-      EXTENSION_FILE_NAMES.todos
+      EXTENSION_FILE_NAMES.todos,
     );
   }
 
@@ -60,6 +60,7 @@ export class TodoManager {
   public static getTodos(): Todo[] | null {
     const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
     if (!workspaceRoot) {
+      vscode.window.showErrorMessage(ERRORS.NotInit);
       return null;
     }
     const todosPath = this.getTodosPath(workspaceRoot);
@@ -71,6 +72,35 @@ export class TodoManager {
       return JSON.parse(data) as Todo[];
     } catch (error) {
       console.error("Error reading todos:", error);
+      vscode.window.showErrorMessage(ERRORS.SomethingHappens);
+
+      fs.writeFileSync(todosPath, JSON.stringify(DEFAULT_TODOS, null, 2));
+      return [];
+    }
+  }
+
+  public static addTodo(todo: Todo) {
+    const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+    if (!workspaceRoot) {
+      vscode.window.showErrorMessage(ERRORS.NotInit);
+      return null;
+    }
+    const todosPath = this.getTodosPath(workspaceRoot);
+    if (!fs.existsSync(todosPath)) {
+      return null;
+    }
+    try {
+      const data = fs.readFileSync(todosPath, "utf8");
+      const todoList: Todo[] = JSON.parse(data);
+      todoList.push(todo);
+
+      fs.writeFileSync(todosPath, JSON.stringify(todoList), "utf8");
+
+      return todoList;
+    } catch (error) {
+      console.error("Error reading todos:", error);
+      vscode.window.showErrorMessage(ERRORS.SomethingHappens);
+
       fs.writeFileSync(todosPath, JSON.stringify(DEFAULT_TODOS, null, 2));
       return [];
     }
