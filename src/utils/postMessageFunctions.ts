@@ -1,11 +1,12 @@
 import * as vscode from "vscode";
-import { Message, Todo } from "../types";
+import { Message, Priority, Todo } from "../types";
 import { TodoManager } from "../todoManager";
 import { POST_COMMANDS } from "../constants/commands";
+import { generateTodo } from "./todoMaker";
 
-export const updateTodos = (
+export const updateTodoList = (
   webviewView: vscode.WebviewView,
-  inputTodos?: Todo[] | null,
+  inputTodos?: Todo[] | null
 ) => {
   let todos: Todo[] | null;
 
@@ -21,7 +22,11 @@ export const updateTodos = (
   });
 };
 
-export const addTodo = (webviewView: vscode.WebviewView, todo: Todo) => {
-  const todos = TodoManager.addTodo(todo);
-  updateTodos(webviewView, todos);
+export const addTodo = (
+  webviewView: vscode.WebviewView,
+  task: string,
+  priority: Priority
+) => {
+  const todos = TodoManager.addTodo(generateTodo(task, priority));
+  updateTodoList(webviewView, todos);
 };
