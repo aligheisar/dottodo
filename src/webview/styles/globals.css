@@ -935,7 +935,7 @@ button:hover {
   background-color: var(--vscode-button-hoverBackground);
 }
 
-button:focus {
+button:focus-visible {
   outline: 1.5px solid var(--vscode-focusBorder);
   outline-offset: 2px;
 }
@@ -1034,4 +1034,9 @@ span.codicon {
 
 .span-button:hover {
   background-color: var(--vscode-inputOption-hoverBackground);
+}
+
+.span-button:focus-visible {
+  outline: none;
+  border: 1px solid var(--vscode-inputOption-activeBorder);
 }
