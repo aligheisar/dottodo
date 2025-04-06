@@ -18,6 +18,16 @@ export const PACKAGE_JSON: packageJson = {
         title: "Add a new TODO",
         category: COMMANDS_CATEGORY,
       },
+      {
+        command: COMMANDS.REMOVE_TODO,
+        title: "Remove a TODO",
+        category: COMMANDS_CATEGORY,
+      },
+      {
+        command: COMMANDS.UPDATE_TODO,
+        title: "Update a TODO",
+        category: COMMANDS_CATEGORY,
+      },
     ],
     viewsContainers: {
       activitybar: [
