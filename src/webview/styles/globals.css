@@ -1,6 +1,7 @@
 @import url(reset.css);
 @import url(codicon.css);
 @import url(utils.css);
+@import url(todo.css);
 
 :root {
   --container-padding: 20px;
@@ -885,14 +886,16 @@ body,
 }
 
 body {
+  padding: 0;
   padding-top: 4px;
+  overflow-x: hidden;
 }
 
 #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 *:focus {

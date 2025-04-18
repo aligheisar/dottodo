@@ -1,0 +1,23 @@
+.todo {
+  gap: 8px;
+  padding-block: 8px;
+}
+
+.todo > span {
+  font-size: 1rem;
+  overflow-x: auto;
+}
+
+.todo > span:focus-visible {
+  outline: none;
+  outline: 1px solid var(--vscode-focusBorder);
+}
+
+.todo:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+.todo:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
