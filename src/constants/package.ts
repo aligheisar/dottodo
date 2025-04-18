@@ -24,8 +24,8 @@ export const PACKAGE_JSON: packageJson = {
         category: COMMANDS_CATEGORY,
       },
       {
-        command: COMMANDS.UPDATE_TODO,
-        title: "Update a TODO",
+        command: COMMANDS.EDIT_TODO,
+        title: "Edit a TODO",
         category: COMMANDS_CATEGORY,
       },
     ],
