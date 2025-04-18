@@ -30,3 +30,9 @@ export const addTodo = (
   const todos = TodoManager.addTodo(generateTodo(task, priority));
   updateTodoList(webviewView, todos);
 };
+
+export const removeTodo = (webviewView: vscode.WebviewView, id: string) => {
+  const todos = TodoManager.removeTodo(id);
+  updateTodoList(webviewView, todos);
+};
+

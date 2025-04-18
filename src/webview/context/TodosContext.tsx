@@ -8,12 +8,15 @@ import {
 import { Todo } from "../../types";
 import { POST_COMMANDS } from "../../constants/commands";
 import { useMessage } from "../hooks/use-message";
-import { loadedMessage, updateTodosListMessage } from "../utils/postMessages";
+import {
+  removeTodoMessage,
+} from "../utils/postMessages";
 
 export type ContextValues = {
   todos: Todo[] | null;
   loading: boolean;
   refreshTodos: () => void;
+  deleteTodo: (id: string) => void;
 };
 
 const TodosContext = createContext<ContextValues | null>(null);
@@ -47,7 +50,21 @@ const TodosProvider = ({ children }: { children: ReactNode }) => {
     updateTodosListMessage();
   };
 
-  const contextValues: ContextValues = { todos: todos, loading, refreshTodos };
+  const deleteTodo = (id: string) => {
+    removeTodoMessage(id);
+  };
+
+  const editTodo = (id: string) => {
+    editTodoMessage(id);
+  };
+
+  const contextValues: ContextValues = {
+    todos: todos,
+    loading,
+    refreshTodos,
+    deleteTodo,
+    editTodo,
+  };
   return (
     <TodosContext.Provider value={contextValues}>
       {children}
