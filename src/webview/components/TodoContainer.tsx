@@ -1,5 +1,7 @@
 import type { Todo } from "../../types";
 import TodosHeader from "./TodosHeader";
+import TodoC from "./Todo";
+import Loading from "./Loading";
 
 const TodoContainer = ({
   todos,
@@ -9,22 +11,18 @@ const TodoContainer = ({
   loading: boolean;
 }) => {
   return (
-    <section>
+    <section className="col-md">
       <TodosHeader />
       {loading ? (
-        <p>loading...</p>
-      ) : (
+        <Loading />
+      ) : todos.length > 0 ? (
         <ul>
-          {todos.length > 0 ? (
-            todos.map((i) => (
-              <p style={i.done ? { color: "red" } : {}} key={i.id}>
-                {i.task}
-              </p>
-            ))
-          ) : (
-            <p>no item to show</p>
-          )}
+          {todos.map((i) => (
+            <TodoC data={i} key={i.id} />
+          ))}
         </ul>
+      ) : (
+        <p className="text-center">no item to show</p>
       )}
     </section>
   );

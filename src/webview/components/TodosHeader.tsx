@@ -5,9 +5,9 @@ const TodosHeader = () => {
   const { refreshTodos } = GetTodos();
 
   return (
-    <div className="row-between">
+    <div className="row-between inline-padding">
       <h1>Todos</h1>
-      <SpanButton codiconName="refresh" onClick={refreshTodos} />
+      <SpanButton codiconName="refresh" func={refreshTodos} />
     </div>
   );
 };
