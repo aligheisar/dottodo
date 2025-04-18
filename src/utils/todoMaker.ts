@@ -1,11 +1,12 @@
 import { Priority, Todo } from "../types";
-import { nanoid } from "nanoid";
+import { formatDate } from "./formatDate";
 
 export const generateTodo = (task: string, priority: Priority): Todo => {
+  const date = new Date();
   return {
-    created: new Date().toString(),
+    created: formatDate(date),
     done: false,
-    id: nanoid(),
+    id: Math.random().toString(),
     priority,
     task,
   };
