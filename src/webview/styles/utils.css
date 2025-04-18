@@ -1,5 +1,37 @@
+.inline-padding {
+  padding-inline: 20px;
+}
+
 .row-between {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.row-sm {
+  display: flex;
+  gap: 2px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.col-md {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.center-child {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.font-base {
+  font-size: 1rem;
 }
