@@ -36,3 +36,7 @@ export const removeTodo = (webviewView: vscode.WebviewView, id: string) => {
   updateTodoList(webviewView, todos);
 };
 
+export const editTodo = async (webviewView: vscode.WebviewView, id: string) => {
+  const todos = await TodoManager.editTodo(id);
+  updateTodoList(webviewView, todos);
+};

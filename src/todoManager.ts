@@ -18,7 +18,7 @@ export class TodoManager {
     return path.join(
       workspaceRoot,
       EXTENSION_FOLDER_NAME,
-      EXTENSION_FILE_NAMES.settings,
+      EXTENSION_FILE_NAMES.settings
     );
   }
 
@@ -26,7 +26,7 @@ export class TodoManager {
     return path.join(
       workspaceRoot,
       EXTENSION_FOLDER_NAME,
-      EXTENSION_FILE_NAMES.todos,
+      EXTENSION_FILE_NAMES.todos
     );
   }
 
@@ -133,6 +133,47 @@ export class TodoManager {
     }
   }
 
+  public static async editTodo(id: string) {
+    const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+    if (!workspaceRoot) {
+      vscode.window.showErrorMessage(ERRORS.NotInit);
+      return null;
+    }
+    const todosPath = this.getTodosPath(workspaceRoot);
+    if (!fs.existsSync(todosPath)) {
+      return null;
+    }
+    try {
+      const data = fs.readFileSync(todosPath, "utf8");
+      const todoList: Todo[] = JSON.parse(data);
+      const todoIndex = todoList.findIndex((i) => i.id == id);
+      const todo = todoList[todoIndex];
+
+      const taskResult = await vscode.window.showInputBox({
+        title: "Edit Todo",
+        ignoreFocusOut: true,
+        value: todo.task,
+        placeHolder: "Enter new task",
+        validateInput(value) {
+          if (!value) return "task can't be empty";
+        },
+      });
+
+      if (taskResult) {
+        todoList[todoIndex].task = taskResult;
+      }
+
+      fs.writeFileSync(todosPath, JSON.stringify(todoList), "utf8");
+
+      return todoList;
+    } catch (error) {
+      console.error("Error reading todos:", error);
+      vscode.window.showErrorMessage(ERRORS.SomethingHappens);
+
+      fs.writeFileSync(todosPath, JSON.stringify(DEFAULT_TODOS, null, 2));
+      return [];
+    }
+  }
 
   private static setHiddenAttribute(folderPath: string): void {
     if (process.platform === "win32") {

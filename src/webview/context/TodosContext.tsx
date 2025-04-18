@@ -9,7 +9,10 @@ import { Todo } from "../../types";
 import { POST_COMMANDS } from "../../constants/commands";
 import { useMessage } from "../hooks/use-message";
 import {
+  editTodoMessage,
+  loadedMessage,
   removeTodoMessage,
+  updateTodosListMessage,
 } from "../utils/postMessages";
 
 export type ContextValues = {
@@ -17,6 +20,7 @@ export type ContextValues = {
   loading: boolean;
   refreshTodos: () => void;
   deleteTodo: (id: string) => void;
+  editTodo: (id: string) => void;
 };
 
 const TodosContext = createContext<ContextValues | null>(null);
