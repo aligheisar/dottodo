@@ -30,8 +30,8 @@
         "category": "DotTODO"
       },
       {
-        "command": "dottodo.update-todo",
-        "title": "Update a TODO",
+        "command": "dottodo.edit-todo",
+        "title": "Edit a TODO",
         "category": "DotTODO"
       }
     ],

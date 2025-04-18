@@ -7,7 +7,7 @@ interface MessagePayloadMap {
   [POST_COMMANDS.LOADED]: any;
   [POST_COMMANDS.ADD_TODO]: Todo;
   [POST_COMMANDS.REMOVE_TODO]: { id: string };
-  [POST_COMMANDS.UPDATE_TODO]: Todo;
+  [POST_COMMANDS.EDIT_TODO]: { id: string };
   [POST_COMMANDS.UPDATE_TODO_LIST]: Todo[] | null;
   [POST_COMMANDS.UPDATE_SETTINGS]: Settings;
 }
