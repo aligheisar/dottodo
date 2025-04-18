@@ -3,7 +3,10 @@ import { TODO_PANEL_ID } from "./constants/general";
 import { COMMANDS, POST_COMMANDS } from "./constants/commands";
 import { Message, Priority } from "./types";
 import {
+  addTodo,
+  editTodo,
   removeTodo,
+  updateTodoList,
 } from "./utils/postMessageFunctions";
 
 export class TodoWebviewProvider implements vscode.WebviewViewProvider {
@@ -48,6 +51,11 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
         case POST_COMMANDS.REMOVE_TODO:
           if (!message.data) return;
           removeTodo(webviewView, message.data);
+          break;
+
+        case POST_COMMANDS.EDIT_TODO:
+          if (!message.data) return;
+          editTodo(webviewView, message.data);
           break;
 
         default:

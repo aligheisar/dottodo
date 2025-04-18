@@ -36,5 +36,9 @@ export const removeTodoMessage = (id: string) => {
   });
 };
 
+export const editTodoMessage = (id: string) => {
+  vscode.postMessage({
+    command: POST_COMMANDS.EDIT_TODO,
+    data: id,
   });
 };
