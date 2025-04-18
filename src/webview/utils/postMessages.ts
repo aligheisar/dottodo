@@ -1,5 +1,5 @@
 import { getVSCodeApi } from "../VsCodeApi";
-import type { Message, Todo } from "../../types";
+import type { Message, Priority } from "../../types";
 import { POST_COMMANDS } from "../../constants/commands";
 
 const vscode = getVSCodeApi();
@@ -22,9 +22,19 @@ export const updateTodosListMessage = () => {
   });
 };
 
-export const addTodoMessage = (todo: Todo) => {
+export const addTodoMessage = (task: string, priority: Priority) => {
   vscode.postMessage({
     command: POST_COMMANDS.ADD_TODO,
-    data: todo,
+    data: { task, priority },
+  });
+};
+
+export const removeTodoMessage = (id: string) => {
+  vscode.postMessage({
+    command: POST_COMMANDS.REMOVE_TODO,
+    data: id,
+  });
+};
+
   });
 };

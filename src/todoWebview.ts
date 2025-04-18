@@ -2,7 +2,9 @@ import * as vscode from "vscode";
 import { TODO_PANEL_ID } from "./constants/general";
 import { COMMANDS, POST_COMMANDS } from "./constants/commands";
 import { Message, Priority } from "./types";
-import { addTodo, updateTodoList } from "./utils/postMessageFunctions";
+import {
+  removeTodo,
+} from "./utils/postMessageFunctions";
 
 export class TodoWebviewProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = TODO_PANEL_ID;
@@ -43,6 +45,11 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
           addTodo(webviewView, message.data.task, message.data.priority);
           break;
 
+        case POST_COMMANDS.REMOVE_TODO:
+          if (!message.data) return;
+          removeTodo(webviewView, message.data);
+          break;
+
         default:
           break;
       }
@@ -58,6 +65,12 @@ export class TodoWebviewProvider implements vscode.WebviewViewProvider {
   public addTodo(task: string, priority: Priority) {
     if (this._view) {
       addTodo(this._view, task, priority);
+    }
+  }
+
+  public removeTodo(id: string) {
+    if (this._view) {
+      removeTodo(this._view, id);
     }
   }
 
